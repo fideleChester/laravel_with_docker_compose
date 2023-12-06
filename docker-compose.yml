@@ -8,7 +8,7 @@ services:
     container_name: app_container
     restart: unless-stopped
     tty: true
-    working_dir: /var/www/
+      #working_dir: /var/www/
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: prod
@@ -26,8 +26,8 @@ services:
     tty: true
     volumes:
       - data:/var/lib/postgresql/data
-    links:
-      - app
+    networks:
+      - laravel-network
     env_file:
       - .configDB.env
   web:
@@ -40,6 +40,8 @@ services:
     ports:
       - "8080:80"
       - "8081:443"
+    networks:
+      - laravel-network
 
 
 volumes:
